@@ -1,4 +1,3 @@
-fart
 Hi.
 This is the android version of the High Effort Test Modchart.
 
