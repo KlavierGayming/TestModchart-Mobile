@@ -19,7 +19,11 @@ class OptionsMenu extends MusicBeatState
 	var selector:FlxText;
 	var curSelected:Int = 0;
 
-	var options:Array<OptionCatagory> = [new OptionCatagory("Wip", []),];
+	var options:Array<OptionCatagory> = [
+		new OptionCatagory("Mobile Shit.", [
+			new Thingy('haha change mcontrols!1!1!1!')
+	])
+    ];
 
 	private var currentDescription:String = "";
 	private var grpControls:FlxTypedGroup<Alphabet>;
@@ -31,7 +35,7 @@ class OptionsMenu extends MusicBeatState
 	{
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menuDesat"));
 
-		menuBG.color = 0xFFea71fd;
+		menuBG.color = 0xFF1971ff;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
@@ -57,6 +61,9 @@ class OptionsMenu extends MusicBeatState
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
+		#if android
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 		super.create();
 	}
 

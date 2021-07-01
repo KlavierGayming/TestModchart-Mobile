@@ -47,6 +47,10 @@ import openfl.filters.ShaderFilter;
 
 using StringTools;
 
+#if android
+import ui.Mobilecontrols;
+#end
+
 class PlayState extends MusicBeatState
 {
 	var characterCol:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
@@ -177,6 +181,10 @@ class PlayState extends MusicBeatState
 	// modcharting
 	var block:FlxSprite;
 	var swapped:Bool = false;
+
+	#if android
+	var mcontrols:Mobilecontrols;
+	#end
 
 	function sustain2(strum:Int, spr:FlxSprite, note:Note):Void
 	{
@@ -880,6 +888,29 @@ class PlayState extends MusicBeatState
 		infoTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
+		#if android
+		mcontrols = new Mobilecontrols();
+		switch (mcontrols.mode)
+		{
+			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+				controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+			case HITBOX:
+				controls.setHitBox(mcontrols._hitbox);
+			default:
+		}
+		trackedinputs = controls.trackedinputs;
+		controls.trackedinputs = [];
+
+		var camcontrol = new FlxCamera();
+		FlxG.cameras.add(camcontrol);
+		camcontrol.bgColor.alpha = 0;
+		mcontrols.cameras = [camcontrol];
+
+		mcontrols.visible = false;
+
+		add(mcontrols);
+		#end
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -1061,6 +1092,9 @@ class PlayState extends MusicBeatState
 
 	function startCountdown():Void
 	{
+		#if android
+		mcontrols.visible = true;
+		#end
 		inCutscene = false;
 
 		generateStaticArrows(0);

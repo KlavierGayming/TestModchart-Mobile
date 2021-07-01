@@ -99,6 +99,28 @@ class DFJKOption extends Option
 		return FlxG.save.data.dfjk ? "DFJK" : "WASD";
 	}
 }
+class Thingy extends Option
+{
+	private var controls:Controls;
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool
+	{
+		FlxG.switchState(new options.CustomControlsState());
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Mobile Controls";
+	}
+}
 
 class DownscrollOption extends Option
 {

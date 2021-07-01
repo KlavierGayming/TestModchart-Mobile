@@ -14,7 +14,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import io.newgrounds.NG;
+//import io.newgrounds.NG;
 import lime.app.Application;
 
 using StringTools;
@@ -112,6 +112,9 @@ class MainMenuState extends MusicBeatState
 
 		changeItem();
 		// ModName
+		#if android
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 		super.create();
 	}
 
@@ -194,7 +197,7 @@ class MainMenuState extends MusicBeatState
 									case 'options':
 										FlxTransitionableState.skipNextTransIn = true;
 										FlxTransitionableState.skipNextTransOut = true;
-										FlxG.switchState(new OptionsMenu());
+										FlxG.switchState(new options.CustomControlsState());
 								}
 							});
 						}
